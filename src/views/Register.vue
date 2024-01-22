@@ -32,43 +32,34 @@
   
   <script>
   import { ref } from 'vue';
+  import { useAuthStore } from "@/stores/AuthStore";
   
   export default {
     setup() {
-      const username = ref('');
-      const email = ref('');
-      const password = ref('');
-      const confirmPassword = ref('');
-  
-      const register = () => {
-        // Handle registration logic here
-        console.log('Registration submitted:', username.value, email.value, password.value);
-  
-        // Simulating an error during registration
-        const registrationError = true;
-  
-        if (registrationError) {
-          // If there's an error, keep the entered username and email
-          // You can display an error message to the user or handle it in your own way
-          console.log('Registration error!');
-  
-          // Example: You can update the state to keep the entered username and email
-          // This can be used to pre-fill the form with the previously entered values
-          // if the user needs to fix the registration error
-          // You may want to implement better error handling based on your application needs
-          // For simplicity, we are just logging a message here
-          // You can customize this based on your actual error handling strategy
-        }
-      };
-  
+        const username = ref('');
+        const email = ref('');
+        const password = ref('');
+        const confirmPassword = ref('');
+
       return {
         username,
         email,
         password,
         confirmPassword,
-        register,
       };
     },
+    methods:{
+        register(){
+            const authStore = useAuthStore()
+            const registrationData = {
+                username: username.value,
+                email: email.value,
+                password: password.value,
+                password_confirmation: confirmPassword.value,
+            };
+            authStore.register(registrationData)
+        }
+    }
   };
   </script>
   

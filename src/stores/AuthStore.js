@@ -7,7 +7,14 @@ export const useAuthStore = defineStore('authStore', {
     }),
     actions:{
         async register(data){
-            //
+            try{
+                const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/auth/register`, data);
+                this.user = res.data.data
+
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                this.loading = false;
+            }
         }
     }
 })
