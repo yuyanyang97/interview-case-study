@@ -6,11 +6,12 @@
 
         <nav class="flex space-x-4">
           <router-link to="/" class="hover:underline">Home</router-link>
-          <router-link to="/register" class="hover:underline">Register</router-link>
-          <router-link to="/login" class="hover:underline">Login</router-link>
+
+          <router-link to="/register" v-if="user === null || user === undefined" class="hover:underline">Register</router-link>
+          <router-link to="/login" v-if="user === null || user === undefined" class="hover:underline">Login</router-link>
           <router-link to="/order" class="hover:underline">Order</router-link>
           <!-- Add more navigation links as needed -->
-          <router-link to="/cart" class="relative group">
+          <router-link v-if="user" to="/cart" class="relative group">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21h6a2 2 0 0 0 2-2H7a2 2 0 0 0 2 2zm-5-5h14m-5-9v6m-4-6v6"></path>
             </svg>
@@ -33,10 +34,14 @@
 
 <script>
 import { useCartStore } from "@/stores/CartStore";
+import { useAuthStore } from "@/stores/AuthStore";
 
 export default {
   name: 'App',
   setup(){
+    const authStore = useAuthStore()
+    console.log(authStore.user)
+    JSON.parse(sessionStorage.getItem('userData'))
     const cartStore = useCartStore()
     cartStore.getCartList(1)
     return cartStore
