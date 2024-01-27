@@ -25,6 +25,7 @@
   <script>
   import { ref } from 'vue';
   import { useAuthStore } from "@/stores/AuthStore";
+  import router from '@/router';
    
     export default {
         setup() {
@@ -37,13 +38,16 @@
         };
         },
         methods:{
-            login(){
+            async login(){
                 const authStore = useAuthStore()
                 const LoginData = {
                     username: username.value,
                     password: password.value,
                 };
-                authStore.login(LoginData)
+                
+                await authStore.login(LoginData)
+
+                window.location.assign('/');
             }
         }
     }

@@ -8,10 +8,22 @@ import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/order', component: Order },
-  { path: '/register', component: Register },
-  { path: '/login', component: Login },
+  { path: '/', 
+    name: 'home',
+    component: Home
+  },
+  { path: '/order',
+    name: 'order',
+    component: Order 
+  },
+  { path: '/register', 
+    name: 'register',
+    component: Register 
+  },
+  { path: '/login', 
+    name: 'login',
+    component: Login 
+  },
   {
     path: '/products/:id',
     name: 'product',
