@@ -2,7 +2,7 @@
     <div class="container mx-auto mt-8">
       <div class="flex justify-between items-start">
         <!-- Product Category -->
-        <div class="w-1/4">
+        <div>
           <ProductCategorySlider />
         </div>
   
@@ -17,7 +17,7 @@
         <NewProductSection />
       </div>
     </div>
-  </template>
+</template>
 
 <script>
 import ProductCategorySlider from "@/components/ProductCategorySlider.vue";

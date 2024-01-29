@@ -6,9 +6,9 @@
       <div class="flex flex-col space-y-4">
         <!-- Iterate over product categories and display them vertically -->
         <div
-          v-for="category in categories"
+          v-for="category in category_list"
           :key="category.id"
-          class="cursor-pointer p-2 bg-gray-200 rounded-md"
+          class="cursor-pointer p-2 bg-gray-200 rounded-md text-center"
           @click="selectCategory(category)"
         >
           {{ category.name }}
@@ -18,16 +18,15 @@
   </template>
   
   <script>
+  import { useCategoryStore } from "@/stores/CategoryStore";
+
   export default {
-    data() {
-      return {
-        categories: [
-          { id: 1, name: 'Electronics' },
-          { id: 2, name: 'Clothing' },
-          { id: 3, name: 'Home & Garden' },
-          // Add more categories as needed
-        ],
-      };
+    setup() {
+      const categoryStore = useCategoryStore()
+
+      categoryStore.getCategoryList()
+      
+      return categoryStore
     },
     methods: {
       selectCategory(category) {
@@ -37,8 +36,4 @@
     },
   };
   </script>
-  
-  <style scoped>
-  /* Add your scoped styles here */
-  </style>
   

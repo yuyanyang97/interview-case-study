@@ -85,5 +85,14 @@ export const useProductStore = defineStore('productStore', {
                 console.log(res.data.msg)
             }
         },
+        async getProductInCategory(category_id){
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCategoryProduct/${category_id}`);
+                this.product_list = res.data.data
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+                this.loading = false;
+            }
+        }
     }
 })

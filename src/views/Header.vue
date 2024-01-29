@@ -6,7 +6,7 @@
                 <router-link to="/" v-if="authStore.in_session" class="hover:underline">{{ authStore.user.username }}</router-link>
                 <router-link to="/register" v-if="!authStore.in_session" class="hover:underline">Register</router-link>
                 <router-link to="/login" v-if="!authStore.in_session" class="hover:underline">Login</router-link>
-                <router-link to="/order" class="hover:underline">Order</router-link>
+                <router-link to="/order" v-if="authStore.in_session" class="hover:underline">Order</router-link>
                 
                 <!-- Add more navigation links as needed -->
                 <router-link v-if="authStore.in_session" to="/cart" class="relative group">
