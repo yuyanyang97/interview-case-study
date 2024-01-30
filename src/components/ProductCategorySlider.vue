@@ -9,7 +9,7 @@
           v-for="category in category_list"
           :key="category.id"
           class="cursor-pointer p-2 bg-gray-200 rounded-md text-center"
-          @click="selectCategory(category)"
+          @click="selectCategory(category.id)"
         >
           {{ category.name }}
         </div>
@@ -29,9 +29,9 @@
       return categoryStore
     },
     methods: {
-      selectCategory(category) {
+      selectCategory(categoryId) {
         // Implement logic to handle category selection
-        console.log(`Selected category: ${category.name}`);
+        this.$router.push({ name: 'category', params: { id: categoryId } });
       },
     },
   };

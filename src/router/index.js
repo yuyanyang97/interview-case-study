@@ -6,6 +6,7 @@ import Order from '@/views/Order.vue';
 import ProductDetail from '@/views/ProductDetail.vue';
 import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
+import CategoryProductList from '@/views/CategoryProductList.vue';
 
 const routes = [
   { path: '/', 
@@ -29,12 +30,29 @@ const routes = [
     name: 'product',
     component: ProductDetail,
     props: true
+  },
+  {
+    path: '/category/:id',
+    name: 'category',
+    component: CategoryProductList,
+    props: true,
+    beforeEnter: [authCheck]
   }
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes,   
+  routes,
 });
+
+function authCheck(to){
+  if (
+    // make sure the user is authenticated
+    sessionStorage.getItem('userData') === null && to.name !== 'login'
+  ) {
+    // redirect the user to the login page
+    return { name: 'login' }
+  }
+}
 
 export default router;

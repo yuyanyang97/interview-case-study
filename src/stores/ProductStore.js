@@ -77,18 +77,12 @@ export const useProductStore = defineStore('productStore', {
                 console.log(res.data.msg)
             }
         },
-        async addToCart(product_id) {
-            const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/addToCart/${product_id}`);
-
-            if(res.data.msg){
-                this.getProducts();
-                console.log(res.data.msg)
-            }
-        },
-        async getProductInCategory(category_id){
+        async getProductInCategory(id){
             try {
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCategoryProduct/${category_id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCategoryProduct/${id}`);
                 this.product_list = res.data.data
+
+                console.log(res.data.data)
             } catch (error) {
                 console.error('Error fetching tasks:', error);
                 this.loading = false;
