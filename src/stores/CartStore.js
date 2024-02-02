@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import { useAuthStore as authStore } from '@/stores/AuthStore'
+import { useAuthStore } from '@/stores/AuthStore'
 
 export const useCartStore = defineStore('cartStore', {
     state: () => ({
@@ -9,6 +9,9 @@ export const useCartStore = defineStore('cartStore', {
     getters:{
         cartCount(){
             return this.cart.length;
+        },
+        getTotal(){
+            return this.cart.reduce((total, product) => total + product.price, 0);
         }
     },
     actions:{
@@ -18,7 +21,7 @@ export const useCartStore = defineStore('cartStore', {
                 const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCart/${user_id}`);
                 
                 this.cart = res.data.data
-
+                console.log(res.data.data)
                 this.loading = false
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -26,15 +29,16 @@ export const useCartStore = defineStore('cartStore', {
             }
         },
         async addToCart(product_id) {
-            console.log(authStore.user)
+            const authStore = useAuthStore()
+
             const req = {
                 user_id : authStore.user.id
             }
             const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/addToCart/${product_id}`, req);
-            
+            window.location.reload()
             if(res.data.msg){
                 console.log(res.data.msg)
             }
-        },
+        }
     }
 })

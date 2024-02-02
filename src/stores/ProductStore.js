@@ -81,8 +81,6 @@ export const useProductStore = defineStore('productStore', {
             try {
                 const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCategoryProduct/${id}`);
                 this.product_list = res.data.data
-
-                console.log(res.data.data)
             } catch (error) {
                 console.error('Error fetching tasks:', error);
                 this.loading = false;

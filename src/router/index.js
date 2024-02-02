@@ -7,6 +7,7 @@ import ProductDetail from '@/views/ProductDetail.vue';
 import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
 import CategoryProductList from '@/views/CategoryProductList.vue';
+import Cart from '@/views/Cart.vue';
 
 const routes = [
   { path: '/', 
@@ -37,6 +38,11 @@ const routes = [
     component: CategoryProductList,
     props: true,
     beforeEnter: [authCheck]
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart
   }
 ];
 

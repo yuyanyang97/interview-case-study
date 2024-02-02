@@ -16,7 +16,7 @@
 
                 <!-- Red dot indicating cart length -->
                 <div v-if="cartStore.cartCount > 0" class="absolute -top-1 -right-1 bg-red-500 w-4 h-4 flex items-center justify-center rounded-full">
-                    <span class="text-xs font-bold">{{ cartLength }}</span>
+                    <!-- <span class="text-xs font-bold">{{ cartLength }}</span> -->
                 </div>
                 </router-link>
                 <router-link to="/" @click="logout" v-if="authStore.in_session" class="hover:underline">Logout</router-link>

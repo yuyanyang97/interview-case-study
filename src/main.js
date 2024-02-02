@@ -26,7 +26,7 @@ const i18n = createI18n({
 // Use Pinia in the app
 app.use(pinia);
 
-app.provide('globalData', globalData);
+// app.provide('globalData', globalData);
 // Use Vue Router in the app
 app.use(router);
 // Mount the app to the DOM

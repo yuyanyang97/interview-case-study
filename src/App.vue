@@ -15,11 +15,16 @@
 
 <script>
 import Header from '@/views/Header.vue'
-
+import { useAuthStore } from "@/stores/AuthStore";
 export default {
   name: 'App',
   components: {
     Header,
   },
+  setup(){
+    const authStore = useAuthStore()
+
+    authStore.getUser()
+  }
 }
 </script>
