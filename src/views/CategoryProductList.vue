@@ -1,11 +1,4 @@
-<template>
-  <!-- Display cart items -->
-  <div v-if="cartStore.cart.length === 0" class="text-gray-600">
-        Your cart is empty.
-      </div>
-  
-      <div v-else>
-        
+<template>        
     <div class="container mx-auto mt-8">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
   
@@ -14,7 +7,6 @@
           <TaskDetail :product="product" />
         </div>
       </div>
-    </div>
     </div>
   </template>
 

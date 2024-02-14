@@ -11,7 +11,7 @@ export const useCartStore = defineStore('cartStore', {
             return this.cart.length;
         },
         getTotal(){
-            return this.cart.reduce((total, product) => total + product.price, 0);
+            return this.cart.reduce((total, product) => total + (product.price * product.qty), 0);
         }
     },
     actions:{
@@ -36,6 +36,19 @@ export const useCartStore = defineStore('cartStore', {
             }
             const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/addToCart/${product_id}`, req);
             window.location.reload()
+            if(res.data.msg){
+                console.log(res.data.msg)
+            }
+        },
+        async checkout() {
+            const authStore = useAuthStore()
+            const formData = new FormData()
+
+            formData.append('user_id', authStore.user.id);
+            console.log(formData)
+            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/checkout`, formData);
+            console.log(res.data.data)
+            
             if(res.data.msg){
                 console.log(res.data.msg)
             }
