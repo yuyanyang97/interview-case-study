@@ -2,7 +2,7 @@
     <div class="flex items-center mb-6">
         <div>
             <h1 class="text-2xl font-semibold">Order ID: {{ order.order_id }}</h1>
-            <p class="text-gray-600">Status: {{ order.status }}</p>
+            <p class="text-gray-600">Status: {{ $t("order_status."+order.status) }}</p>
         </div>
     </div>
 
@@ -20,12 +20,13 @@
 
 <script>
     import { useOrderStore } from "@/stores/OrderStore";
+
     export default {
         props: ['order'],
         setup(){
             const orderStore = useOrderStore()
             
-            return{ orderStore }
+            return{ orderStore}
         }
     }
 </script>

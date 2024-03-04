@@ -16,9 +16,11 @@ export const useOrderStore = defineStore('orderStore', {
         async getOrderList(){
             try {
                 this.loading = true;
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getOrder`);
+                const user = JSON.parse(sessionStorage.getItem('userData')).id;
                 
-                this.order_list = res.data.data
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getOrder/${user}`);
+                // console.log(res.data.data)
+                this.order_list = res.data
 
                 this.loading = false
             } catch (error) {

@@ -8,6 +8,7 @@ import Register from '@/views/Register.vue';
 import Login from '@/views/Login.vue';
 import CategoryProductList from '@/views/CategoryProductList.vue';
 import Cart from '@/views/Cart.vue';
+import Profile from "@/views/Profile.vue";
 
 const routes = [
   { path: '/', 
@@ -43,7 +44,12 @@ const routes = [
     path: '/cart',
     name: 'cart',
     component: Cart
-  }
+  },
+  {
+    path: '/profile/:id',
+    name: 'profile',
+    component: Profile
+  },
 ];
 
 const router = createRouter({

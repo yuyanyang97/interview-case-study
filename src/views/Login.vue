@@ -25,7 +25,6 @@
   <script>
   import { ref } from 'vue';
   import { useAuthStore } from "@/stores/AuthStore";
-  import router from '@/router';
    
     export default {
         setup() {
@@ -46,8 +45,8 @@
                 };
                 
                 await authStore.login(LoginData)
-
-                window.location.assign('/');
+                
+                authStore.user ? window.location.assign('/') : alert('wrong password')
             }
         }
     }

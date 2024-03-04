@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center">
             <router-link to="/" class="text-lg font-semibold">My App</router-link>
             <nav class="flex space-x-4">
-                <router-link to="/" v-if="authStore.in_session" class="hover:underline">{{ authStore.user.username }}</router-link>
+                <router-link to="/profile" v-if="authStore.in_session" class="hover:underline">{{ authStore.user.username }}</router-link>
                 <router-link to="/register" v-if="!authStore.in_session" class="hover:underline">Register</router-link>
                 <router-link to="/login" v-if="!authStore.in_session" class="hover:underline">Login</router-link>
                 <router-link to="/order" v-if="authStore.in_session" class="hover:underline">Order</router-link>

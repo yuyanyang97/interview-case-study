@@ -21,7 +21,7 @@ export const useCartStore = defineStore('cartStore', {
                 const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCart/${user_id}`);
                 
                 this.cart = res.data.data
-                console.log(res.data.data)
+
                 this.loading = false
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -47,7 +47,6 @@ export const useCartStore = defineStore('cartStore', {
             formData.append('user_id', authStore.user.id);
             console.log(formData)
             const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/checkout`, formData);
-            console.log(res.data.data)
             
             if(res.data.msg){
                 console.log(res.data.msg)
