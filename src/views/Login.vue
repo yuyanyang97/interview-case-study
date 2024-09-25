@@ -45,7 +45,7 @@
                 };
                 
                 await authStore.login(LoginData)
-                
+                console.log(authStore.user)
                 authStore.user ? window.location.assign('/') : alert('wrong password')
             }
         }

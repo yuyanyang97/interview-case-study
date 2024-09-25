@@ -18,7 +18,7 @@ export const useCartStore = defineStore('cartStore', {
         async getCartList(user_id){
             try {
                 this.loading = true;
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCart/${user_id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/cart/list/${user_id}`);
                 
                 this.cart = res.data.data
 
@@ -34,7 +34,7 @@ export const useCartStore = defineStore('cartStore', {
             const req = {
                 user_id : authStore.user.id
             }
-            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/addToCart/${product_id}`, req);
+            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/cart/addToCart/${product_id}`, req);
             window.location.reload()
             if(res.data.msg){
                 console.log(res.data.msg)
@@ -45,9 +45,9 @@ export const useCartStore = defineStore('cartStore', {
             const formData = new FormData()
 
             formData.append('user_id', authStore.user.id);
-            console.log(formData)
-            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/checkout`, formData);
-            
+            console.log(authStore.user.id)
+            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/checkout`, formData);
+
             if(res.data.msg){
                 console.log(res.data.msg)
             }

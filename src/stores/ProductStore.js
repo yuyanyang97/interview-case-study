@@ -27,7 +27,7 @@ export const useProductStore = defineStore('productStore', {
         async getProducts() {
             try {
                 this.loading = true;
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getProduct`);
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/product/list`);
                 
                 this.product_list = res.data.data
                 this.loading = false;
@@ -79,7 +79,7 @@ export const useProductStore = defineStore('productStore', {
         },
         async getProductInCategory(id){
             try {
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/getCategoryProduct/${id}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/product/category/${id}`);
                 this.product_list = res.data.data
             } catch (error) {
                 console.error('Error fetching tasks:', error);

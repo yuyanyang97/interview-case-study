@@ -34,7 +34,7 @@ const routes = [
     props: true
   },
   {
-    path: '/category/:id',
+    path: '/category/:id?',
     name: 'category',
     component: CategoryProductList,
     props: true,

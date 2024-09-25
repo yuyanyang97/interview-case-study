@@ -31,7 +31,7 @@ import { useAuthStore } from "@/stores/AuthStore";
 
 export default {
   name: 'App',
-  async setup() {    
+  async setup() {
     const cartStore = useCartStore()
     const authStore = useAuthStore()
 
