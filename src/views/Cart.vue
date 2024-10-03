@@ -2,17 +2,26 @@
     <div class="container mx-auto mt-8">
       <h1 class="text-2xl font-semibold mb-4">Shopping Cart</h1>
 
-        <Suspense>
+      <div v-if="cartStore.cart.length > 0">
             <CartItem />
-        </Suspense>
+      </div>
+      <div v-else>
+        <p>Please add product </p>
+        <a :href="'category'">View Product</a>
+      </div>
     </div>
   </template>
 
 <script>
 import CartItem from "@/components/CartItem.vue";
+import { useCartStore } from "@/stores/CartStore";
 
 export default {
-    name: 'Cart',
-    components:{CartItem}
+    components:{CartItem},
+    setup(){
+        const cartStore = useCartStore()
+        cartStore.getCartList()
+        return { cartStore }
+    },
 }
 </script>

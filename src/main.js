@@ -17,7 +17,6 @@ const pinia = createPinia();
 
 // Create the Vue app
 const app = createApp(App);
-console.log(en)
 const i18n = createI18n({
     legacy: true,
     locale: "",

@@ -15,41 +15,45 @@ export const useCartStore = defineStore('cartStore', {
         }
     },
     actions:{
-        async getCartList(user_id){
+        async getCartList(){
             try {
-                this.loading = true;
-                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/cart/list/${user_id}`);
-                
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/cart/list`);
                 this.cart = res.data.data
 
-                this.loading = false
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        },
+        async addToCart(product_id) {
+            try {
+                const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/cart/addToCart/${product_id}`);
+                window.location.reload()
             } catch (error) {
                 console.error('Error fetching data:', error);
                 this.loading = false;
             }
         },
-        async addToCart(product_id) {
-            const authStore = useAuthStore()
+        async checkout() {
+            try {
+                const authStore = useAuthStore()
+                const formData = new FormData()
 
-            const req = {
-                user_id : authStore.user.id
-            }
-            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/cart/addToCart/${product_id}`, req);
-            window.location.reload()
-            if(res.data.msg){
-                console.log(res.data.msg)
+                formData.append('user_id', authStore.user.id);
+                const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/checkout`, formData);
+
+                router.push({ name: 'order'})
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                this.loading = false;
             }
         },
-        async checkout() {
-            const authStore = useAuthStore()
-            const formData = new FormData()
-
-            formData.append('user_id', authStore.user.id);
-            console.log(authStore.user.id)
-            const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/checkout`, formData);
-
-            if(res.data.msg){
-                console.log(res.data.msg)
+        async remove(product_id){
+            try {
+                const res = await axios.delete(`${import.meta.env.VITE_API_ENDPOINT}/cart/remove/${product_id}`);
+                window.location.reload()
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                this.loading = false;
             }
         }
     }

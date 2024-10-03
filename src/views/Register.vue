@@ -1,8 +1,11 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gray-100">
-      <div class="bg-white p-8 rounded shadow-md w-96">
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="bg-white p-8 rounded shadow-lg w-96">
         <h2 class="text-2xl font-semibold mb-6">Register</h2>
         <form @submit.prevent="register">
+          <ul class="text-red-500 list-disc mb-3">
+              <li v-for="error in errors" :key="error" >{{ error }}</li>
+          </ul>
           <div class="mb-4">
             <label for="username" class="block text-gray-600">Username</label>
             <input v-model="username" type="text" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500">
@@ -40,24 +43,32 @@
         const email = ref('');
         const password = ref('');
         const confirmPassword = ref('');
+        const errors = ref([]);
 
       return {
         username,
         email,
         password,
         confirmPassword,
+        errors
       };
     },
     methods:{
-        register(){
-            const authStore = useAuthStore()
-            const registrationData = {
-                username: username.value,
-                email: email.value,
-                password: password.value,
-                password_confirmation: confirmPassword.value,
-            };
-            authStore.register(registrationData)
+        async register(){
+          const authStore = useAuthStore()
+          const registrationData = {
+              username: username.value,
+              email: email.value,
+              password: password.value,
+              password_confirmation: confirmPassword.value,
+          };
+          const result = await authStore.register(registrationData)
+
+          if(result.length > 0){
+            this.errors = result;
+          }else{
+            //
+          }
         }
     }
   };

@@ -3,13 +3,13 @@
         <div class="flex justify-between items-center">
             <router-link to="/" class="text-lg font-semibold">My App</router-link>
             <nav class="flex space-x-4">
-                <router-link to="/profile" v-if="authStore.in_session" class="hover:underline">{{ authStore.user.username }}</router-link>
-                <router-link to="/register" v-if="!authStore.in_session" class="hover:underline">Register</router-link>
-                <router-link to="/login" v-if="!authStore.in_session" class="hover:underline">Login</router-link>
-                <router-link to="/order" v-if="authStore.in_session" class="hover:underline">Order</router-link>
-                
+                <router-link to="/register" v-if="!authStore.user" class="hover:underline">Register</router-link>
+                <router-link to="/login" v-if="!authStore.user" class="hover:underline">Login</router-link>
+                <router-link to="/order" v-if="authStore.user" class="hover:underline">Order</router-link>
+                <router-link to="/activity" v-if="authStore.user" class="hover:underline">User Activity</router-link>
+
                 <!-- Add more navigation links as needed -->
-                <router-link v-if="authStore.in_session" to="/cart" class="relative group">
+                <router-link v-if="authStore.user" to="/cart" class="relative group">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white hover:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21h6a2 2 0 0 0 2-2H7a2 2 0 0 0 2 2zm-5-5h14m-5-9v6m-4-6v6"></path>
                 </svg>
@@ -19,7 +19,7 @@
                     <!-- <span class="text-xs font-bold">{{ cartLength }}</span> -->
                 </div>
                 </router-link>
-                <router-link to="/" @click="logout" v-if="authStore.in_session" class="hover:underline">Logout</router-link>
+                <router-link to="/" @click="logout" v-if="authStore.user" class="hover:underline">Logout</router-link>
             </nav>
         </div>
     </header>
@@ -35,8 +35,10 @@ export default {
     const cartStore = useCartStore()
     const authStore = useAuthStore()
 
-    await cartStore.getCartList(1)
-    await authStore.getUser()
+    if(authStore.user)
+      await cartStore.getCartList()
+
+    // const user = JSON.parse(sessionStorage.getItem('userData'))
 
     return {cartStore, authStore}
   },

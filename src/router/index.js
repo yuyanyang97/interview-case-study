@@ -9,6 +9,7 @@ import Login from '@/views/Login.vue';
 import CategoryProductList from '@/views/CategoryProductList.vue';
 import Cart from '@/views/Cart.vue';
 import Profile from "@/views/Profile.vue";
+import UserActivity from "@/views/UserActivity.vue";
 
 const routes = [
   { path: '/', 
@@ -50,6 +51,11 @@ const routes = [
     name: 'profile',
     component: Profile
   },
+  {
+    path: '/activity',
+    name: 'activity',
+    component: UserActivity
+  }
 ];
 
 const router = createRouter({

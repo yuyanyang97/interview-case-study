@@ -7,7 +7,7 @@
         </div>
         <div class="flex items-center">
         <span class="text-lg font-semibold mr-4">{{ item.price }} X {{ item.qty }}</span>
-        <button class="text-red-500 hover:text-red-600">    
+        <button class="text-red-500 hover:text-red-600" @click="remove(item.id)">    
             Remove
         </button>
         </div>
@@ -28,11 +28,10 @@ import { useCartStore } from "@/stores/CartStore";
 import { useAuthStore } from "@/stores/AuthStore";
 
 export default {
-    async setup(){
+    setup(){
         const cartStore = useCartStore()
-        const authStore = useAuthStore()
         
-        await cartStore.getCartList(authStore.user.id)
+        cartStore.getCartList()
         // console.log(cartStore.cart)
         return { cartStore }
     },
@@ -40,6 +39,10 @@ export default {
         checkout(){
             const cartStore = useCartStore()
             cartStore.checkout();
+        },
+        remove(product_id){
+            const cartStore = useCartStore()
+            cartStore.remove(product_id);
         }
     }
 }   

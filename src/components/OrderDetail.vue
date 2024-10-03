@@ -7,16 +7,19 @@
     </div>
     <p>Item:</p>
     <div class="flex justify-between items-center border-t border-b py-4">
-        {{ console.log(orderStore.order_item_list) }}
-        <div class="grid-cols-2" v-for="item in orderStore.order_item_list" :key="item.id">
+    <div class="grid grid-cols-1 gap-4 w-full">
+        <div v-for="item in orderStore.order_item_list" :key="item.id" class="flex justify-between">
+            <!-- Product name aligned to the start -->
             <div>
                 <p>{{ item.product.name }}</p>
             </div>
+            <!-- Product price aligned to the end -->
             <div>
                 <p>{{ item.product_price }}</p>
             </div>
         </div>
     </div>
+</div>
 
     <div class="flex justify-between items-center border-t border-b py-4">
         <div>
@@ -26,7 +29,8 @@
             <span class="font-semibold">{{ (Math.round(order.order_price * 100)/100).toFixed(2) }}</span>
         </div>
     </div>
-    <div class="my-2">
+
+    <div class="my-2" v-if="order.status === 1">
         <button class="text-white 
             bg-blue-600 
             hover:bg-blue-700 

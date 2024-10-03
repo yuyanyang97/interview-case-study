@@ -3,6 +3,9 @@
       <div class="bg-white p-8 rounded shadow-md w-96">
         <h2 class="text-2xl font-semibold mb-6">Login</h2>
         <form @submit.prevent="login">
+            <ul class="text-red-500 list-disc mb-3">
+              <li v-for="error in errors" :key="error" >{{ error }}</li>
+          </ul>
           <div class="mb-4">
             <label for="username" class="block text-gray-600">username</label>
             <input v-model="username" type="username" id="username" name="username" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500">
@@ -30,10 +33,12 @@
         setup() {
             const username = ref('');
             const password = ref('');
+            const errors = ref([]);
 
         return {
             username,
             password,
+            errors
         };
         },
         methods:{
@@ -44,9 +49,13 @@
                     password: password.value,
                 };
                 
-                await authStore.login(LoginData)
-                console.log(authStore.user)
-                authStore.user ? window.location.assign('/') : alert('wrong password')
+                const result = await authStore.login(LoginData)
+
+                if(result.length > 0){
+                  this.errors = result;
+                }else{
+                  authStore.user ? window.location.assign('/') : alert(result)
+                }
             }
         }
     }

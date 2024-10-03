@@ -4,16 +4,11 @@ import axios from 'axios';
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
         user : null,
-        in_session: false
+        errors : []
     }),
     actions:{
         async getUser(){
-            const key = JSON.parse(sessionStorage.getItem('userData'))
-
-            key ? 
-                key.session_id ? 
-                (this.user = key, this.in_session = true) : this.in_session = false 
-                : this.in_session = false
+            this.user = JSON.parse(sessionStorage.getItem('userData'))
         },
         async register(data){
             try{
@@ -21,8 +16,8 @@ export const useAuthStore = defineStore('authStore', {
                 this.user = res.data.data
 
             } catch (error) {
-                console.error('Error fetching data:', error);
-                this.loading = false;
+                console.error('Error fetching data:', error.response.data.messages);
+                return error.response.data.messages
             }
         },
         async login(data){
@@ -31,9 +26,11 @@ export const useAuthStore = defineStore('authStore', {
                 this.user = res.data.data
 
                 sessionStorage.setItem('userData', JSON.stringify(this.user))
+                return true
             } catch (error) {
-                console.error('Error fetching data:', error);
-                this.loading = false;
+                console.error('Error fetching data:', error.response.data.messages);
+                return error.response.data.messages
+
             }
         },
         async logout(){

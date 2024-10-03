@@ -34,7 +34,7 @@ export const useOrderStore = defineStore('orderStore', {
                 
                 const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/getOrderItem/${order_id}`);
                 this.order_item_list = res.data.data
-                console.log(this.order_item_list)
+                
                 this.loading = false
             } catch (error) {
                 console.error('Error fetching tasks:', error);
@@ -42,18 +42,25 @@ export const useOrderStore = defineStore('orderStore', {
             }
         },
         async pay(order_id) {
-            console.log(order_id)
-            const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/payOrder/${order_id}`);
-            
-            if(res.data.msg){
-                console.log(res.data.msg)
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/payOrder/${order_id}`);
+                window.location.reload()
+            } catch (error) {
+                console.error('Error fetching tasks:', error.response.data.messages)
+                alert(error.response.data.message)
             }
         },
         async cancelOrder(order_id){
-            const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/cancelOrder/${order_id}`);
-            
-            if(res.data.msg){
-                console.log(res.data.msg)
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/cancelOrder/${order_id}`);
+                
+                if(res.data.msg){
+                    console.log(error.response.data.messages)
+                }
+                window.location.reload()
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+                alert(error.response.data.message)
             }
         }
     }

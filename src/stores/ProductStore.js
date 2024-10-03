@@ -74,7 +74,7 @@ export const useProductStore = defineStore('productStore', {
 
             if(res.data.msg){
                 this.getProducts();
-                console.log(res.data.msg)
+                console.log(error.response.data.messages)
             }
         },
         async getProductInCategory(id){

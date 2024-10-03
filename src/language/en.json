@@ -1,5 +1,7 @@
 {
     "order_status": {
-        "1": "pending"
+        "0" : "Canceled",
+        "1" : "Pending",
+        "2" : "Paid"
     }
 }
