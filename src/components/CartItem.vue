@@ -38,7 +38,11 @@ export default {
     methods:{
         checkout(){
             const cartStore = useCartStore()
-            cartStore.checkout();
+            const res = cartStore.checkout();
+
+            if(res)
+                window.location.href = '/order';
+
         },
         remove(product_id){
             const cartStore = useCartStore()

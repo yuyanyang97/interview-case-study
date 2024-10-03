@@ -41,7 +41,7 @@ export const useCartStore = defineStore('cartStore', {
                 formData.append('user_id', authStore.user.id);
                 const res = await axios.post(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/checkout`, formData);
 
-                router.push({ name: 'order'})
+                return true
             } catch (error) {
                 console.error('Error fetching data:', error);
                 this.loading = false;

@@ -7,7 +7,7 @@
       </div>
       <div v-else>
         <p>Please add product </p>
-        <a :href="'category'">View Product</a>
+        <a :href="'category'" class="text-blue-500">View Product</a>
       </div>
     </div>
   </template>

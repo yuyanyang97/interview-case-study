@@ -8,10 +8,10 @@
     <p>Item:</p>
     <div class="flex justify-between items-center border-t border-b py-4">
     <div class="grid grid-cols-1 gap-4 w-full">
-        <div v-for="item in orderStore.order_item_list" :key="item.id" class="flex justify-between">
+        <div v-for="item in order_list" :key="item.id" class="flex justify-between">
             <!-- Product name aligned to the start -->
             <div>
-                <p>{{ item.product.name }}</p>
+                <p>{{ item.product.name }} x {{ item.qty }}</p>
             </div>
             <!-- Product price aligned to the end -->
             <div>
@@ -60,14 +60,25 @@
 
 <script>
     import { useOrderStore } from "@/stores/OrderStore";
+    import { ref,onMounted } from "vue";
 
     export default {
         props: ['order'],
-        setup(props){
-            const orderStore = useOrderStore()
-            orderStore.getOrderDetailList(props.order.id)
-            return{ orderStore }
-        },
+        setup(props) {
+        const orderStore = useOrderStore();
+        const order_list = ref([]);  // Use ref to make order_list reactive
+
+        const fetchOrderDetails = async () => {
+        const details = await orderStore.getOrderDetailList(props.order.id);
+        order_list.value = details;  // Assign the fetched data to the reactive order_list
+        };
+
+        onMounted(() => {
+        fetchOrderDetails();
+        });
+
+        return { order_list };  // Return order_list so the template can access it
+    },
         methods:{
             pay(order_id){
                 const orderStore = useOrderStore()

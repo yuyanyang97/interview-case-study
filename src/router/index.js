@@ -18,7 +18,8 @@ const routes = [
   },
   { path: '/order',
     name: 'order',
-    component: Order 
+    component: Order,
+    beforeEnter: [authCheck]
   },
   { path: '/register', 
     name: 'register',
@@ -32,7 +33,8 @@ const routes = [
     path: '/products/:id',
     name: 'product',
     component: ProductDetail,
-    props: true
+    props: true,
+    beforeEnter: [authCheck]
   },
   {
     path: '/category/:id?',
@@ -44,7 +46,8 @@ const routes = [
   {
     path: '/cart',
     name: 'cart',
-    component: Cart
+    component: Cart,
+    beforeEnter: [authCheck]
   },
   {
     path: '/profile/:id',
@@ -54,7 +57,8 @@ const routes = [
   {
     path: '/activity',
     name: 'activity',
-    component: UserActivity
+    component: UserActivity,
+    beforeEnter: [authCheck]
   }
 ];
 

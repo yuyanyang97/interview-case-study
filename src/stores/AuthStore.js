@@ -34,8 +34,16 @@ export const useAuthStore = defineStore('authStore', {
             }
         },
         async logout(){
-            sessionStorage.clear();
-            this.user = null;
+            try{
+                await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/auth/logout`)
+
+                sessionStorage.clear();
+                this.user = null;
+            } catch (error) {
+                console.error('Error fetching data:', error.response.data.messages);
+                return error.response.data.messages
+
+            }
         }
     }
 })

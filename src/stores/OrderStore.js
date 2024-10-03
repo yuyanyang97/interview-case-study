@@ -33,9 +33,7 @@ export const useOrderStore = defineStore('orderStore', {
                 this.loading = true;
                 
                 const res = await axios.get(`${import.meta.env.VITE_API_ENDPOINT}/sales_order/getOrderItem/${order_id}`);
-                this.order_item_list = res.data.data
-                
-                this.loading = false
+                return res.data.data
             } catch (error) {
                 console.error('Error fetching tasks:', error);
                 this.loading = false;
